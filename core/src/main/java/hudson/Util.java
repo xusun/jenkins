@@ -137,7 +137,7 @@ public class Util {
     /**
      * Pattern for capturing variables. Either $xyz or ${xyz}, while ignoring "$$"
       */
-    private static final Pattern VARIABLE = Pattern.compile("\\$([A-Za-z0-9_]+|\\{[A-Za-z0-9_]+\\}|\\$)");
+    private static final Pattern VARIABLE = Pattern.compile("[\\$%]([A-Za-z0-9_]+|\\{[A-Za-z0-9_]+\\})[\\$%])");
 
     /**
      * Replaces the occurrence of '$key' by <tt>properties.get('key')</tt>.
@@ -166,7 +166,7 @@ public class Util {
             Matcher m = VARIABLE.matcher(s);
             if(!m.find(idx))   return s;
 
-            String key = m.group().substring(1);
+            String key = m.group(1);
 
             // escape the dollar sign or get the key to resolve
             String value;
